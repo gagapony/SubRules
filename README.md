@@ -12,7 +12,7 @@
 
 ## 工作方式
 
-节点由 Sub-Store 集合生成，规则由本仓库维护。脚本只接受三个精确参数：
+节点由 Sub-Store 文件界面中选中的订阅或组合生成，规则由本仓库维护。脚本不需要 Script Operator 参数，只读取请求中的三个精确 `target`：
 
 ```text
 target=mihomo
@@ -26,32 +26,15 @@ target=shadowrocket
 
 ## Sub-Store 设置
 
-1. 创建集合 `Unified`，加入需要合并的订阅。
-2. 创建一个 `mihomoConfig` 文件，使用非空本地基础内容：
-
-```yaml
-proxies: []
-```
-
+1. 创建一个 `mihomoConfig` 文件。
+2. 在文件来源中选择现有订阅或组合；脚本会直接读取 `$file.sourceType` 和 `$file.sourceName`。
 3. 添加 Script Operator，使用脚本链接：
 
 ```text
 https://raw.githubusercontent.com/gagapony/SubRules/main/rules/substore.js
 ```
 
-4. Script Operator 参数只需设置集合名；不设置时默认也是 `Unified`：
-
-```json
-{
-  "collection": "Unified"
-}
-```
-
-可选参数 `baseUrl` 用于测试 fork 或固定 commit，默认值为：
-
-```text
-https://raw.githubusercontent.com/gagapony/SubRules/main/rules
-```
+4. Script Operator 参数保持为空。
 
 ## 文件分享链接
 
@@ -61,10 +44,16 @@ https://raw.githubusercontent.com/gagapony/SubRules/main/rules
 /share/file/Subscription?token=YOUR_FILE_TOKEN&target=shadowrocket
 ```
 
-Shadowrocket 节点订阅使用集合分享链接：
+Shadowrocket 节点仍使用 Sub-Store 原生分享链接。选择组合时：
 
 ```text
-/share/col/Unified/Shadowrocket?token=YOUR_COLLECTION_TOKEN
+/share/col/YOUR_COLLECTION/Shadowrocket?token=YOUR_COLLECTION_TOKEN
+```
+
+选择单个订阅时：
+
+```text
+/share/sub/YOUR_SUBSCRIPTION/Shadowrocket?token=YOUR_SUBSCRIPTION_TOKEN
 ```
 
 不要把真实 token、上游订阅地址或生成后的节点配置提交到仓库。

@@ -4,14 +4,20 @@ const path = require('node:path')
 
 const scriptPath = path.join(__dirname, 'substore.js')
 
-async function run({ target, template, artifacts = {}, scriptArguments }) {
+async function run({
+  target,
+  template,
+  artifacts = {},
+  file = { sourceType: 'collection', sourceName: 'Unified' }
+}) {
   const script = fs.readFileSync(scriptPath, 'utf8')
   const requests = []
+  const productions = []
   const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
   const execute = new AsyncFunction(
     '$content',
     '$options',
-    '$arguments',
+    '$file',
     '$substore',
     'ProxyUtils',
     'produceArtifact',
@@ -21,7 +27,7 @@ async function run({ target, template, artifacts = {}, scriptArguments }) {
   const result = await execute(
     '',
     { _req: { query: { target } } },
-    scriptArguments ?? { baseUrl: 'https://example.test/rules', collection: 'Unified' },
+    file,
     {
       http: {
         async get({ url }) {
@@ -36,16 +42,35 @@ async function run({ target, template, artifacts = {}, scriptArguments }) {
         safeDump: value => JSON.stringify(value)
       }
     },
-    async ({ platform }) => structuredClone(artifacts[platform] ?? [])
+    async options => {
+      productions.push(options)
+      return structuredClone(artifacts[options.platform] ?? [])
+    }
   )
 
-  return { ...result, requests }
+  return { ...result, requests, productions }
 }
 
 async function main() {
   await assert.rejects(
     run({ target: 'sing-box', template: '{}' }),
     /不支持的 target: sing-box/
+  )
+  await assert.rejects(
+    run({
+      target: 'mihomo',
+      template: '{}',
+      file: { sourceType: 'remote', sourceName: 'https://example.test/sub' }
+    }),
+    /请选择订阅或组合/
+  )
+  await assert.rejects(
+    run({
+      target: 'mihomo',
+      template: '{}',
+      file: { sourceType: 'collection', sourceName: '' }
+    }),
+    /请选择订阅或组合/
   )
 
   const mihomoTemplate = JSON.stringify({
@@ -71,7 +96,15 @@ async function main() {
     }
   })
   const mihomoConfig = JSON.parse(mihomo.$content)
-  assert.deepEqual(mihomo.requests, ['https://example.test/rules/mihomo.yaml'])
+  assert.deepEqual(mihomo.requests, [
+    'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml'
+  ])
+  assert.deepEqual(mihomo.productions, [{
+    type: 'collection',
+    name: 'Unified',
+    platform: 'ClashMeta',
+    produceType: 'internal'
+  }])
   assert.deepEqual(mihomoConfig.proxies.map(proxy => proxy.name), ['香港 A', 'US B'])
   assert.deepEqual(mihomoConfig['proxy-groups'][0].proxies, ['香港 A', 'US B'])
   assert.deepEqual(mihomoConfig['proxy-groups'][2].proxies, ['香港 A'])
@@ -92,6 +125,7 @@ async function main() {
   const singBox = await run({
     target: 'singbox',
     template: singBoxTemplate,
+    file: { sourceType: 'subscription', sourceName: 'NodeSub' },
     artifacts: {
       'sing-box': [
         { type: 'vless', tag: 'JP A' },
@@ -100,7 +134,15 @@ async function main() {
     }
   })
   const singBoxConfig = JSON.parse(singBox.$content)
-  assert.deepEqual(singBox.requests, ['https://example.test/rules/sing-box.json'])
+  assert.deepEqual(singBox.requests, [
+    'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/sing-box.json'
+  ])
+  assert.deepEqual(singBox.productions, [{
+    type: 'subscription',
+    name: 'NodeSub',
+    platform: 'sing-box',
+    produceType: 'internal'
+  }])
   assert.deepEqual(singBoxConfig.outbounds.slice(-2).map(outbound => outbound.tag), ['JP A', '德国 B'])
   assert.deepEqual(singBoxConfig.outbounds.find(outbound => outbound.tag === '手动选择').outbounds, ['JP A', '德国 B'])
   assert.deepEqual(singBoxConfig.outbounds.find(outbound => outbound.tag === '日本节点').outbounds, ['JP A'])
@@ -110,18 +152,12 @@ async function main() {
     target: 'shadowrocket',
     template: '[General]\nipv6 = true\n'
   })
-  assert.deepEqual(shadowrocket.requests, ['https://example.test/rules/shadowrocket.conf'])
-  assert.equal(shadowrocket.$content, '[General]\nipv6 = true\n')
-  assert.equal(shadowrocket.$options._res.headers['profile-update-interval'], 24)
-
-  const defaultRepository = await run({
-    target: 'shadowrocket',
-    template: '[General]\n',
-    scriptArguments: { collection: 'Unified' }
-  })
-  assert.deepEqual(defaultRepository.requests, [
+  assert.deepEqual(shadowrocket.requests, [
     'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/shadowrocket.conf'
   ])
+  assert.deepEqual(shadowrocket.productions, [])
+  assert.equal(shadowrocket.$content, '[General]\nipv6 = true\n')
+  assert.equal(shadowrocket.$options._res.headers['profile-update-interval'], 24)
 
   console.log('substore rules tests passed')
 }

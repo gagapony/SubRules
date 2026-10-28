@@ -1,19 +1,19 @@
 const target = String($options?._req?.query?.target ?? '')
 const templates = {
-  mihomo: 'mihomo.yaml',
-  singbox: 'sing-box.json',
-  shadowrocket: 'shadowrocket.conf'
+  mihomo: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml',
+  singbox: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/sing-box.json',
+  shadowrocket: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/shadowrocket.conf'
 }
 
 if (!Object.hasOwn(templates, target)) {
   throw new Error(`不支持的 target: ${target}`)
 }
 
-const baseUrl = String($arguments?.baseUrl ?? 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules').replace(/\/+$/, '')
-const collection = String($arguments?.collection ?? 'Unified')
+const sourceType = $file?.sourceType
+const sourceName = String($file?.sourceName ?? '').trim()
 
-if (!baseUrl) {
-  throw new Error('缺少脚本参数 baseUrl')
+if (!['subscription', 'collection'].includes(sourceType) || !sourceName) {
+  throw new Error('请选择订阅或组合')
 }
 
 const metadataPattern = /(剩余|流量|套餐|到期|官网|订阅|更新|traffic|expire|有效期)/i
@@ -26,12 +26,12 @@ const regionPatterns = {
 
 async function fetchTemplate() {
   const response = await $substore.http.get({
-    url: `${baseUrl}/${templates[target]}`,
+    url: templates[target],
     timeout: 15000
   })
 
   if (!response || response.statusCode < 200 || response.statusCode >= 300) {
-    throw new Error(`拉取 ${templates[target]} 失败: HTTP ${response?.statusCode ?? 'unknown'}`)
+    throw new Error(`拉取规则模板失败: HTTP ${response?.statusCode ?? 'unknown'}`)
   }
 
   return response.body
@@ -47,7 +47,7 @@ function usableNames(items, key) {
     throw new Error(`节点名称重复: ${duplicate}`)
   }
   if (!names.length) {
-    throw new Error('统一集合没有可用节点')
+    throw new Error('所选来源没有可用节点')
   }
 
   return names
@@ -77,8 +77,8 @@ const template = await fetchTemplate()
 if (target === 'mihomo') {
   const config = ProxyUtils.yaml.safeLoad(template)
   const produced = await produceArtifact({
-    type: 'collection',
-    name: collection,
+    type: sourceType,
+    name: sourceName,
     platform: 'ClashMeta',
     produceType: 'internal'
   })
@@ -92,8 +92,8 @@ if (target === 'mihomo') {
 } else if (target === 'singbox') {
   const config = JSON.parse(template)
   const produced = await produceArtifact({
-    type: 'collection',
-    name: collection,
+    type: sourceType,
+    name: sourceName,
     platform: 'sing-box',
     produceType: 'internal'
   })
