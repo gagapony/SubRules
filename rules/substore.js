@@ -1,7 +1,7 @@
 const target = String($options?._req?.query?.target ?? '')
 const templates = {
   mihomo: 'mihomo.yaml',
-  'sing-box': 'sing-box.json',
+  singbox: 'sing-box.json',
   shadowrocket: 'shadowrocket.conf'
 }
 
@@ -89,7 +89,7 @@ if (target === 'mihomo') {
   config['proxy-groups'] = config['proxy-groups'] ?? []
   fillGroups(config['proxy-groups'], 'name', 'proxies', names)
   $content = ProxyUtils.yaml.safeDump(config)
-} else if (target === 'sing-box') {
+} else if (target === 'singbox') {
   const config = JSON.parse(template)
   const produced = await produceArtifact({
     type: 'collection',

@@ -44,8 +44,8 @@ async function run({ target, template, artifacts = {}, scriptArguments }) {
 
 async function main() {
   await assert.rejects(
-    run({ target: 'singbox', template: '{}' }),
-    /不支持的 target: singbox/
+    run({ target: 'sing-box', template: '{}' }),
+    /不支持的 target: sing-box/
   )
 
   const mihomoTemplate = JSON.stringify({
@@ -90,7 +90,7 @@ async function main() {
     ]
   })
   const singBox = await run({
-    target: 'sing-box',
+    target: 'singbox',
     template: singBoxTemplate,
     artifacts: {
       'sing-box': [

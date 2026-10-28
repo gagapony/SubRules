@@ -16,7 +16,7 @@
 
 ```text
 target=mihomo
-target=sing-box
+target=singbox
 target=shadowrocket
 ```
 
@@ -57,7 +57,7 @@ https://raw.githubusercontent.com/gagapony/SubRules/main/rules
 
 ```text
 /share/file/Subscription?token=YOUR_FILE_TOKEN&target=mihomo
-/share/file/Subscription?token=YOUR_FILE_TOKEN&target=sing-box
+/share/file/Subscription?token=YOUR_FILE_TOKEN&target=singbox
 /share/file/Subscription?token=YOUR_FILE_TOKEN&target=shadowrocket
 ```
 
