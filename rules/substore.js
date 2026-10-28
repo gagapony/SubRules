@@ -1,3 +1,5 @@
+// Prevent Sub-Store from calling a leaked main function from an earlier script.
+const main = null
 const target = String($options?._req?.query?.target ?? '')
 const templates = {
   mihomo: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml',

@@ -21,7 +21,7 @@ async function run({
     '$substore',
     'ProxyUtils',
     'produceArtifact',
-    `${script}\nreturn { $content, $options }`
+    `${script}\nif (typeof main === 'function') await main({})\nreturn { $content, $options }`
   )
 
   const result = await execute(
@@ -52,6 +52,10 @@ async function run({
 }
 
 async function main() {
+  globalThis.main = async () => {
+    throw new Error('stale global main invoked')
+  }
+
   await assert.rejects(
     run({ target: 'sing-box', template: '{}' }),
     /不支持的 target: sing-box/
@@ -159,6 +163,7 @@ async function main() {
   assert.equal(shadowrocket.$content, '[General]\nipv6 = true\n')
   assert.equal(shadowrocket.$options._res.headers['profile-update-interval'], 24)
 
+  delete globalThis.main
   console.log('substore rules tests passed')
 }
 
