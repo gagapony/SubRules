@@ -154,7 +154,7 @@ async function main() {
 
   const shadowrocket = await run({
     target: 'shadowrocket',
-    template: mihomoTemplate,
+    template: 'unused',
     artifacts: {
       Shadowrocket: [
         {
@@ -177,9 +177,7 @@ async function main() {
     }
   })
   const shadowrocketConfig = JSON.parse(shadowrocket.$content)
-  assert.deepEqual(shadowrocket.requests, [
-    'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml'
-  ])
+  assert.deepEqual(shadowrocket.requests, [])
   assert.deepEqual(shadowrocket.productions, [{
     type: 'collection',
     name: 'Unified',
@@ -190,8 +188,21 @@ async function main() {
   assert.equal(shadowrocketConfig.proxies[0]._subName, undefined)
   assert.equal(shadowrocketConfig.proxies[0]['reality-opts']['_spider-x'], '/spider-a')
   assert.equal(shadowrocketConfig.proxies[1].fingerprint, 'sha256-b')
-  assert.deepEqual(shadowrocketConfig['proxy-groups'][0].proxies, ['香港 A', '德国 B'])
+  assert.equal(shadowrocketConfig['proxy-groups'], undefined)
+  assert.equal(shadowrocketConfig.rules, undefined)
   assert.equal(shadowrocket.$options._res.headers['profile-update-interval'], 24)
+
+  const shadowrocketRulesTemplate = '[General]\nipv6 = true\n\n[Proxy Group]\n手动选择 = select,policy-regex-filter=.\n\n[Rule]\nFINAL,Final\n'
+  const shadowrocketRules = await run({
+    target: 'shadowrocket-rules',
+    template: shadowrocketRulesTemplate
+  })
+  assert.deepEqual(shadowrocketRules.requests, [
+    'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/shadowrocket.conf'
+  ])
+  assert.deepEqual(shadowrocketRules.productions, [])
+  assert.equal(shadowrocketRules.$content, shadowrocketRulesTemplate)
+  assert.equal(shadowrocketRules.$options._res.headers['profile-update-interval'], 24)
 
   delete globalThis.main
   console.log('substore rules tests passed')

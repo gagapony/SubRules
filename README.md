@@ -7,21 +7,24 @@
 - `rules/substore.js`：Sub-Store 文件脚本
 - `rules/mihomo.yaml`：Mihomo 规则模板
 - `rules/sing-box.json`：sing-box 规则模板
+- `rules/shadowrocket.conf`：Shadowrocket 规则配置
 - `rules/test-substore.js`：脚本行为测试
 
 ## 工作方式
 
-节点由 Sub-Store 文件界面中选中的订阅或组合生成，规则由本仓库维护。脚本不需要 Script Operator 参数，只读取请求中的三个精确 `target`：
+节点由 Sub-Store 文件界面中选中的订阅或组合生成，规则由本仓库维护。脚本不需要 Script Operator 参数，只读取请求中的四个精确 `target`：
 
 ```text
 target=clash
 target=singbox
 target=shadowrocket
+target=shadowrocket-rules
 ```
 
 - Clash/Mihomo：拉取模板，注入 ClashMeta 节点并填充手动、自动、故障转移和地区策略组。
 - sing-box：拉取模板，注入 sing-box outbounds 并填充对应出站组。
-- Shadowrocket：使用 Sub-Store 原生 Shadowrocket 节点对象，保留 Reality 和 Hysteria2 参数，并输出包含 `proxies`、`proxy-groups`、`rules` 的 Clash YAML 节点订阅。
+- Shadowrocket 节点：使用 Sub-Store 原生 Shadowrocket 节点对象，保留 Reality 和 Hysteria2 参数，只输出 `proxies` 节点订阅。
+- Shadowrocket 规则：返回独立的 `[General]`、`[Proxy Group]`、`[Rule]` 远程配置。
 
 ## Sub-Store 设置
 
@@ -41,6 +44,7 @@ https://raw.githubusercontent.com/gagapony/SubRules/main/rules/substore.js
 /share/file/Subscription?token=YOUR_FILE_TOKEN&target=clash
 /share/file/Subscription?token=YOUR_FILE_TOKEN&target=singbox
 /share/file/Subscription?token=YOUR_FILE_TOKEN&target=shadowrocket
+/share/file/Subscription?token=YOUR_FILE_TOKEN&target=shadowrocket-rules
 ```
 
 使用 Worker 时对应为：
@@ -49,9 +53,13 @@ https://raw.githubusercontent.com/gagapony/SubRules/main/rules/substore.js
 https://getsub.528777.xyz/gagapony?target=clash
 https://getsub.528777.xyz/gagapony?target=singbox
 https://getsub.528777.xyz/gagapony?target=shadowrocket
+https://getsub.528777.xyz/gagapony?target=shadowrocket-rules
 ```
 
-Shadowrocket 输出是客户端原生支持的 Clash YAML，可从普通节点订阅入口导入节点和代理组。
+Shadowrocket 中分别导入：
+
+1. `target=shadowrocket` 从普通节点“订阅”入口添加。
+2. `target=shadowrocket-rules` 从“配置文件”入口下载并选为当前配置。
 
 不要把真实 token、上游订阅地址或生成后的节点配置提交到仓库。
 

@@ -4,7 +4,8 @@ const target = String($options?._req?.query?.target ?? '')
 const templates = {
   clash: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml',
   singbox: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/sing-box.json',
-  shadowrocket: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml'
+  shadowrocket: null,
+  'shadowrocket-rules': 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/shadowrocket.conf'
 }
 
 if (!Object.hasOwn(templates, target)) {
@@ -74,47 +75,65 @@ function fillGroups(groups, nameKey, membersKey, names) {
   }
 }
 
-const template = await fetchTemplate()
-
-if (target === 'clash' || target === 'shadowrocket') {
-  const config = ProxyUtils.yaml.safeLoad(template)
+if (target === 'shadowrocket') {
   const produced = await produceArtifact({
     type: sourceType,
     name: sourceName,
-    platform: target === 'clash' ? 'ClashMeta' : 'Shadowrocket',
+    platform: 'Shadowrocket',
     produceType: 'internal'
   })
   const names = usableNames(produced, 'name')
   const allowed = new Set(names)
-
-  config.proxies = produced
+  const proxies = produced
     .filter(proxy => allowed.has(proxy.name))
     .map(proxy => Object.fromEntries(Object.entries(proxy).filter(([key]) => !key.startsWith('_'))))
-  config['proxy-groups'] = config['proxy-groups'] ?? []
-  fillGroups(config['proxy-groups'], 'name', 'proxies', names)
-  $content = ProxyUtils.yaml.safeDump(config)
-} else if (target === 'singbox') {
-  const config = JSON.parse(template)
-  const produced = await produceArtifact({
-    type: sourceType,
-    name: sourceName,
-    platform: 'sing-box',
-    produceType: 'internal'
-  })
-  const names = usableNames(produced, 'tag')
-  const allowed = new Set(names)
-  const nodes = produced.filter(outbound => allowed.has(outbound.tag))
 
-  config.outbounds = config.outbounds ?? []
-  const reserved = new Set(config.outbounds.map(outbound => outbound.tag))
-  const collision = names.find(name => reserved.has(name))
-  if (collision) {
-    throw new Error(`节点名称与规则出站重复: ${collision}`)
+  $content = ProxyUtils.yaml.safeDump({ proxies })
+} else {
+  const template = await fetchTemplate()
+
+  if (target === 'clash') {
+    const config = ProxyUtils.yaml.safeLoad(template)
+    const produced = await produceArtifact({
+      type: sourceType,
+      name: sourceName,
+      platform: 'ClashMeta',
+      produceType: 'internal'
+    })
+    const names = usableNames(produced, 'name')
+    const allowed = new Set(names)
+
+    config.proxies = produced
+      .filter(proxy => allowed.has(proxy.name))
+      .map(proxy => Object.fromEntries(Object.entries(proxy).filter(([key]) => !key.startsWith('_'))))
+    config['proxy-groups'] = config['proxy-groups'] ?? []
+    fillGroups(config['proxy-groups'], 'name', 'proxies', names)
+    $content = ProxyUtils.yaml.safeDump(config)
+  } else if (target === 'singbox') {
+    const config = JSON.parse(template)
+    const produced = await produceArtifact({
+      type: sourceType,
+      name: sourceName,
+      platform: 'sing-box',
+      produceType: 'internal'
+    })
+    const names = usableNames(produced, 'tag')
+    const allowed = new Set(names)
+    const nodes = produced.filter(outbound => allowed.has(outbound.tag))
+
+    config.outbounds = config.outbounds ?? []
+    const reserved = new Set(config.outbounds.map(outbound => outbound.tag))
+    const collision = names.find(name => reserved.has(name))
+    if (collision) {
+      throw new Error(`节点名称与规则出站重复: ${collision}`)
+    }
+
+    fillGroups(config.outbounds, 'tag', 'outbounds', names)
+    config.outbounds.push(...nodes)
+    $content = JSON.stringify(config, null, 2)
+  } else {
+    $content = template
   }
-
-  fillGroups(config.outbounds, 'tag', 'outbounds', names)
-  config.outbounds.push(...nodes)
-  $content = JSON.stringify(config, null, 2)
 }
 
 $options._res = {
