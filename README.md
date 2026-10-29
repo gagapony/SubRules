@@ -15,14 +15,14 @@
 节点由 Sub-Store 文件界面中选中的订阅或组合生成，规则由本仓库维护。脚本不需要 Script Operator 参数，只读取请求中的三个精确 `target`：
 
 ```text
-target=mihomo
+target=clash
 target=singbox
 target=shadowrocket
 ```
 
-- Mihomo：拉取模板，注入 ClashMeta 节点并填充手动、自动、故障转移和地区策略组。
+- Clash/Mihomo：拉取模板，注入 ClashMeta 节点并填充手动、自动、故障转移和地区策略组。
 - sing-box：拉取模板，注入 sing-box outbounds 并填充对应出站组。
-- Shadowrocket：返回独立规则配置；节点继续使用 Sub-Store 原生 Shadowrocket 集合订阅。
+- Shadowrocket：使用 Sub-Store 内置 Loon 序列化生成 `[Proxy]`，再与 `[General]`、`[Proxy Group]`、`[Rule]` 合成完整远程配置。
 
 ## Sub-Store 设置
 
@@ -39,22 +39,20 @@ https://raw.githubusercontent.com/gagapony/SubRules/main/rules/substore.js
 ## 文件分享链接
 
 ```text
-/share/file/Subscription?token=YOUR_FILE_TOKEN&target=mihomo
+/share/file/Subscription?token=YOUR_FILE_TOKEN&target=clash
 /share/file/Subscription?token=YOUR_FILE_TOKEN&target=singbox
 /share/file/Subscription?token=YOUR_FILE_TOKEN&target=shadowrocket
 ```
 
-Shadowrocket 节点仍使用 Sub-Store 原生分享链接。选择组合时：
+使用 Worker 时对应为：
 
 ```text
-/share/col/YOUR_COLLECTION/Shadowrocket?token=YOUR_COLLECTION_TOKEN
+https://getsub.528777.xyz/gagapony?target=clash
+https://getsub.528777.xyz/gagapony?target=singbox
+https://getsub.528777.xyz/gagapony?target=shadowrocket
 ```
 
-选择单个订阅时：
-
-```text
-/share/sub/YOUR_SUBSCRIPTION/Shadowrocket?token=YOUR_SUBSCRIPTION_TOKEN
-```
+Shadowrocket 输出是包含 `[Proxy]` 的完整远程配置，应在“配置”中下载；普通“订阅”入口只解析节点列表，不会启用 `[General]`、策略组和规则。
 
 不要把真实 token、上游订阅地址或生成后的节点配置提交到仓库。
 

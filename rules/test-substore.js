@@ -57,12 +57,12 @@ async function main() {
   }
 
   await assert.rejects(
-    run({ target: 'sing-box', template: '{}' }),
-    /不支持的 target: sing-box/
+    run({ target: 'mihomo', template: '{}' }),
+    /不支持的 target: mihomo/
   )
   await assert.rejects(
     run({
-      target: 'mihomo',
+      target: 'clash',
       template: '{}',
       file: { sourceType: 'remote', sourceName: 'https://example.test/sub' }
     }),
@@ -70,7 +70,7 @@ async function main() {
   )
   await assert.rejects(
     run({
-      target: 'mihomo',
+      target: 'clash',
       template: '{}',
       file: { sourceType: 'collection', sourceName: '' }
     }),
@@ -89,7 +89,7 @@ async function main() {
     ]
   })
   const mihomo = await run({
-    target: 'mihomo',
+    target: 'clash',
     template: mihomoTemplate,
     artifacts: {
       ClashMeta: [
@@ -152,15 +152,31 @@ async function main() {
   assert.deepEqual(singBoxConfig.outbounds.find(outbound => outbound.tag === '日本节点').outbounds, ['JP A'])
   assert.deepEqual(singBoxConfig.outbounds.find(outbound => outbound.tag === '德国节点').outbounds, ['德国 B'])
 
+  const shadowrocketTemplate = '[General]\nipv6 = true\n\n[Proxy Group]\n选择代理 = select,DIRECT\n\n[Rule]\nFINAL,Final\n'
   const shadowrocket = await run({
     target: 'shadowrocket',
-    template: '[General]\nipv6 = true\n'
+    template: shadowrocketTemplate,
+    artifacts: {
+      Loon: [
+        '香港 A=vless,hk.example.com,443,uuid-a,transport=tcp,over-tls=true,udp=true',
+        '德国 B=Hysteria2,de.example.com,443,password-b,tls-name=de.example.com,udp=true',
+        '剩余流量 100GB=vmess,info.example.com,443,aes-128-gcm,uuid-c,transport=ws'
+      ]
+    }
   })
   assert.deepEqual(shadowrocket.requests, [
     'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/shadowrocket.conf'
   ])
-  assert.deepEqual(shadowrocket.productions, [])
-  assert.equal(shadowrocket.$content, '[General]\nipv6 = true\n')
+  assert.deepEqual(shadowrocket.productions, [{
+    type: 'collection',
+    name: 'Unified',
+    platform: 'Loon',
+    produceType: 'internal'
+  }])
+  assert.match(shadowrocket.$content, /\[Proxy\]\n香港 A=vless/)
+  assert.match(shadowrocket.$content, /德国 B=Hysteria2/)
+  assert.doesNotMatch(shadowrocket.$content, /剩余流量/)
+  assert.ok(shadowrocket.$content.indexOf('[Proxy]') < shadowrocket.$content.indexOf('[Proxy Group]'))
   assert.equal(shadowrocket.$options._res.headers['profile-update-interval'], 24)
 
   delete globalThis.main

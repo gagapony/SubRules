@@ -2,7 +2,7 @@
 const main = null
 const target = String($options?._req?.query?.target ?? '')
 const templates = {
-  mihomo: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml',
+  clash: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml',
   singbox: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/sing-box.json',
   shadowrocket: 'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/shadowrocket.conf'
 }
@@ -74,9 +74,31 @@ function fillGroups(groups, nameKey, membersKey, names) {
   }
 }
 
+function insertShadowrocketProxies(config, produced) {
+  const lines = produced.filter(line => {
+    const name = String(line).split('=', 1)[0].trim()
+    return name && !metadataPattern.test(name)
+  })
+  const names = lines.map(line => String(line).split('=', 1)[0].trim())
+  const duplicate = names.find((name, index) => names.indexOf(name) !== index)
+
+  if (duplicate) {
+    throw new Error(`节点名称重复: ${duplicate}`)
+  }
+  if (!lines.length) {
+    throw new Error('所选来源没有可用节点')
+  }
+  if (!config.includes('[Proxy Group]')) {
+    throw new Error('Shadowrocket 配置缺少 [Proxy Group]')
+  }
+
+  // shortcut: 使用 Sub-Store 的 Loon 行覆盖当前 VLESS、VMess、Hysteria2，协议语法分叉时改为独立序列化。
+  return config.replace('[Proxy Group]', `[Proxy]\n${lines.join('\n')}\n\n[Proxy Group]`)
+}
+
 const template = await fetchTemplate()
 
-if (target === 'mihomo') {
+if (target === 'clash') {
   const config = ProxyUtils.yaml.safeLoad(template)
   const produced = await produceArtifact({
     type: sourceType,
@@ -114,7 +136,13 @@ if (target === 'mihomo') {
   config.outbounds.push(...nodes)
   $content = JSON.stringify(config, null, 2)
 } else {
-  $content = template
+  const produced = await produceArtifact({
+    type: sourceType,
+    name: sourceName,
+    platform: 'Loon',
+    produceType: 'internal'
+  })
+  $content = insertShadowrocketProxies(template, produced)
 }
 
 $options._res = {
