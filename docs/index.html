@@ -20,9 +20,10 @@
 <p class="tip">iOS 请用 Safari 打开本页再点击；点击后会唤起对应客户端并自动添加。</p>
 
 <h2>Shadowrocket</h2>
-<p class="tip">先导入节点，再安装规则配置（安装后自动设为当前配置）。</p>
-<a class="btn" href="shadowrocket://add/https://getsub.528777.xyz/gagapony?target=shadowrocket">1. 添加节点订阅</a>
-<a class="btn" href="shadowrocket://config/add/https://getsub.528777.xyz/gagapony?target=shadowrocket-rules">2. 安装规则配置</a>
+<p class="tip">小火箭兼容 clash:// 链接，一键导入节点 + 分组 + 规则（推荐）。</p>
+<a class="btn" id="sr-all" href="#">一键导入节点 + 规则</a>
+<a class="btn ghost" href="shadowrocket://add/https://getsub.528777.xyz/gagapony?target=shadowrocket">备选：仅添加节点订阅</a>
+<a class="btn ghost" href="shadowrocket://config/add/https://getsub.528777.xyz/gagapony?target=shadowrocket-rules">备选：仅安装规则配置</a>
 
 <h2>Clash / Mihomo</h2>
 <p class="tip">适用于 Clash Verge、Mihomo Party 等。</p>
@@ -39,8 +40,10 @@
 <a class="btn ghost" data-copy="https://getsub.528777.xyz/gagapony?target=singbox" href="#">复制 sing-box 订阅</a>
 
 <script>
+  var srAll = 'https://getsub.528777.xyz/gagapony?target=clash'
   var clash = 'https://getsub.528777.xyz/gagapony?target=clash'
   var singbox = 'https://getsub.528777.xyz/gagapony?target=singbox'
+  document.getElementById('sr-all').href = 'clash://install-config?url=' + encodeURIComponent(srAll)
   document.getElementById('clash').href = 'clash://install-config?url=' + encodeURIComponent(clash)
   document.getElementById('singbox').href = 'sing-box://import-remote-profile?url=' + encodeURIComponent(singbox) + '#SubRules'
   document.querySelectorAll('[data-copy]').forEach(function (el) {
