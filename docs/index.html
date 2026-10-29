@@ -12,38 +12,27 @@
   a.btn { display: block; margin: 8px 0; padding: 12px 16px; border-radius: 10px; background: #2563eb; color: #fff; text-decoration: none; font-size: 15px; }
   a.btn:active { background: #1d4ed8; }
   a.btn.ghost { background: #f1f5f9; color: #1a1a1a; }
-  code { word-break: break-all; font-size: 12px; }
 </style>
 </head>
 <body>
 <h1>SubRules 一键导入</h1>
 <p class="tip">iOS 请用 Safari 打开本页再点击；点击后会唤起对应客户端并自动添加。</p>
 
-<h2>Shadowrocket</h2>
-<p class="tip">小火箭兼容 clash:// 链接，一键导入节点 + 分组 + 规则（推荐）。</p>
-<a class="btn" id="sr-all" href="#">一键导入节点 + 规则</a>
-<a class="btn ghost" href="shadowrocket://add/https://getsub.528777.xyz/gagapony?target=shadowrocket">备选：仅添加节点订阅</a>
-<a class="btn ghost" href="shadowrocket://config/add/https://getsub.528777.xyz/gagapony?target=shadowrocket-rules">备选：仅安装规则配置</a>
-
-<h2>Clash / Mihomo</h2>
-<p class="tip">适用于 Clash Verge、Mihomo Party 等。</p>
-<a class="btn" id="clash" href="#">导入 Clash 配置</a>
+<h2>Clash / Mihomo / Shadowrocket</h2>
+<p class="tip">三者使用同一订阅地址；iOS 唤起 Shadowrocket，桌面端适用于 Clash Verge、Mihomo Party 等，一键导入节点 + 分组 + 规则。</p>
+<a class="btn" id="clash" href="#">一键导入节点 + 规则</a>
 
 <h2>sing-box</h2>
 <p class="tip">适用于 SFA / SFI / SFM。</p>
 <a class="btn" id="singbox" href="#">导入 sing-box 配置</a>
 
 <h2>手动复制</h2>
-<a class="btn ghost" data-copy="https://getsub.528777.xyz/gagapony?target=shadowrocket" href="#">复制 Shadowrocket 节点订阅</a>
-<a class="btn ghost" data-copy="https://getsub.528777.xyz/gagapony?target=shadowrocket-rules" href="#">复制 Shadowrocket 规则配置</a>
-<a class="btn ghost" data-copy="https://getsub.528777.xyz/gagapony?target=clash" href="#">复制 Clash 订阅</a>
+<a class="btn ghost" data-copy="https://getsub.528777.xyz/gagapony?target=clash" href="#">复制 Clash / Mihomo / Shadowrocket 订阅</a>
 <a class="btn ghost" data-copy="https://getsub.528777.xyz/gagapony?target=singbox" href="#">复制 sing-box 订阅</a>
 
 <script>
-  var srAll = 'https://getsub.528777.xyz/gagapony?target=clash'
   var clash = 'https://getsub.528777.xyz/gagapony?target=clash'
   var singbox = 'https://getsub.528777.xyz/gagapony?target=singbox'
-  document.getElementById('sr-all').href = 'clash://install-config?url=' + encodeURIComponent(srAll)
   document.getElementById('clash').href = 'clash://install-config?url=' + encodeURIComponent(clash)
   document.getElementById('singbox').href = 'sing-box://import-remote-profile?url=' + encodeURIComponent(singbox) + '#SubRules'
   document.querySelectorAll('[data-copy]').forEach(function (el) {

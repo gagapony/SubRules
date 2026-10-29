@@ -67,8 +67,7 @@ Shadowrocket 中分别导入：
 
 `docs/index.html` 是静态导入页，用 GitHub Pages 托管（Settings → Pages → Deploy from a branch → `main` → `/docs`），地址为 `https://gagapony.github.io/SubRules/`。页面通过客户端 URL scheme 一键导入：
 
-- Shadowrocket：`clash://install-config?url=`（小火箭兼容 clash:// 链接，一键导入节点 + 分组 + 规则，已真机验证），备选 `shadowrocket://add/`、`shadowrocket://config/add/`
-- Clash/Mihomo：`clash://install-config?url=`
+- Clash / Mihomo / Shadowrocket：`clash://install-config?url=`，同一订阅地址，一键导入节点 + 分组 + 规则（小火箭兼容 clash:// 链接，已真机验证）
 - sing-box：`sing-box://import-remote-profile?url=`
 
 ## 测试
