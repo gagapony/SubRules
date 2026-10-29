@@ -63,17 +63,14 @@ function regionalNames(names, pattern) {
 }
 
 function fillGroups(groups, nameKey, membersKey, names) {
-  const dynamicGroups = new Set([target === 'clash' ? '手选节点' : '手动选择', '自动选择', '故障转移'])
+  const dynamicGroups = new Set(['手动选择', '自动选择', '故障转移'])
 
   for (const group of groups) {
     const name = group?.[nameKey]
-    const regionName = target === 'clash'
-      ? (name?.endsWith('自动') ? name.replace(/自动$/, '节点') : null)
-      : name
     if (dynamicGroups.has(name)) {
       group[membersKey] = [...names]
-    } else if (regionPatterns[regionName]) {
-      group[membersKey] = regionalNames(names, regionPatterns[regionName])
+    } else if (regionPatterns[name]) {
+      group[membersKey] = regionalNames(names, regionPatterns[name])
     }
   }
 }
