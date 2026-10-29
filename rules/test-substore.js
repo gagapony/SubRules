@@ -152,31 +152,45 @@ async function main() {
   assert.deepEqual(singBoxConfig.outbounds.find(outbound => outbound.tag === '日本节点').outbounds, ['JP A'])
   assert.deepEqual(singBoxConfig.outbounds.find(outbound => outbound.tag === '德国节点').outbounds, ['德国 B'])
 
-  const shadowrocketTemplate = '[General]\nipv6 = true\n\n[Proxy Group]\n选择代理 = select,DIRECT\n\n[Rule]\nFINAL,Final\n'
   const shadowrocket = await run({
     target: 'shadowrocket',
-    template: shadowrocketTemplate,
+    template: mihomoTemplate,
     artifacts: {
-      Loon: [
-        '香港 A=vless,hk.example.com,443,uuid-a,transport=tcp,over-tls=true,udp=true',
-        '德国 B=Hysteria2,de.example.com,443,password-b,tls-name=de.example.com,udp=true',
-        '剩余流量 100GB=vmess,info.example.com,443,aes-128-gcm,uuid-c,transport=ws'
+      Shadowrocket: [
+        {
+          name: '香港 A',
+          type: 'vless',
+          _subName: 'NodeSub',
+          'reality-opts': {
+            'public-key': 'public-key-a',
+            'short-id': 'short-id-a',
+            '_spider-x': '/spider-a'
+          }
+        },
+        {
+          name: '德国 B',
+          type: 'hysteria2',
+          fingerprint: 'sha256-b'
+        },
+        { name: '剩余流量 100GB', type: 'vmess' }
       ]
     }
   })
+  const shadowrocketConfig = JSON.parse(shadowrocket.$content)
   assert.deepEqual(shadowrocket.requests, [
-    'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/shadowrocket.conf'
+    'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/mihomo.yaml'
   ])
   assert.deepEqual(shadowrocket.productions, [{
     type: 'collection',
     name: 'Unified',
-    platform: 'Loon',
+    platform: 'Shadowrocket',
     produceType: 'internal'
   }])
-  assert.match(shadowrocket.$content, /\[Proxy\]\n香港 A=vless/)
-  assert.match(shadowrocket.$content, /德国 B=Hysteria2/)
-  assert.doesNotMatch(shadowrocket.$content, /剩余流量/)
-  assert.ok(shadowrocket.$content.indexOf('[Proxy]') < shadowrocket.$content.indexOf('[Proxy Group]'))
+  assert.deepEqual(shadowrocketConfig.proxies.map(proxy => proxy.name), ['香港 A', '德国 B'])
+  assert.equal(shadowrocketConfig.proxies[0]._subName, undefined)
+  assert.equal(shadowrocketConfig.proxies[0]['reality-opts']['_spider-x'], '/spider-a')
+  assert.equal(shadowrocketConfig.proxies[1].fingerprint, 'sha256-b')
+  assert.deepEqual(shadowrocketConfig['proxy-groups'][0].proxies, ['香港 A', '德国 B'])
   assert.equal(shadowrocket.$options._res.headers['profile-update-interval'], 24)
 
   delete globalThis.main

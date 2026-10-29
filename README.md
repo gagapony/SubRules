@@ -7,7 +7,6 @@
 - `rules/substore.js`：Sub-Store 文件脚本
 - `rules/mihomo.yaml`：Mihomo 规则模板
 - `rules/sing-box.json`：sing-box 规则模板
-- `rules/shadowrocket.conf`：Shadowrocket 规则配置
 - `rules/test-substore.js`：脚本行为测试
 
 ## 工作方式
@@ -22,7 +21,7 @@ target=shadowrocket
 
 - Clash/Mihomo：拉取模板，注入 ClashMeta 节点并填充手动、自动、故障转移和地区策略组。
 - sing-box：拉取模板，注入 sing-box outbounds 并填充对应出站组。
-- Shadowrocket：使用 Sub-Store 内置 Loon 序列化生成 `[Proxy]`，再与 `[General]`、`[Proxy Group]`、`[Rule]` 合成完整远程配置。
+- Shadowrocket：使用 Sub-Store 原生 Shadowrocket 节点对象，保留 Reality 和 Hysteria2 参数，并输出包含 `proxies`、`proxy-groups`、`rules` 的 Clash YAML 节点订阅。
 
 ## Sub-Store 设置
 
@@ -52,7 +51,7 @@ https://getsub.528777.xyz/gagapony?target=singbox
 https://getsub.528777.xyz/gagapony?target=shadowrocket
 ```
 
-Shadowrocket 输出是包含 `[Proxy]` 的完整远程配置，应在“配置”中下载；普通“订阅”入口只解析节点列表，不会启用 `[General]`、策略组和规则。
+Shadowrocket 输出是客户端原生支持的 Clash YAML，可从普通节点订阅入口导入节点和代理组。
 
 不要把真实 token、上游订阅地址或生成后的节点配置提交到仓库。
 
