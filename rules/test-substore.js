@@ -80,14 +80,11 @@ async function main() {
   const mihomoTemplate = JSON.stringify({
     proxies: [],
     'proxy-groups': [
-      { name: '手动选择', type: 'fallback', proxies: ['手选节点', '故障转移'] },
+      { name: '手动选择', type: 'fallback', proxies: ['手选节点'] },
       { name: '手选节点', type: 'select', proxies: [] },
       { name: '自动选择', type: 'url-test', proxies: [] },
       { name: '故障转移', type: 'fallback', proxies: [] },
-      ...['香港', '日本', '美国', '德国'].flatMap(region => [
-        { name: `${region}节点`, type: 'fallback', proxies: [`${region}自动`, '故障转移'] },
-        { name: `${region}自动`, type: 'url-test', proxies: [] }
-      ])
+      ...['香港', '日本', '美国', '德国'].map(region => ({ name: `${region}节点`, type: 'fallback', proxies: [] }))
     ]
   })
   const mihomo = await run({
@@ -113,19 +110,23 @@ async function main() {
   }])
   assert.deepEqual(mihomoConfig.proxies.map(proxy => proxy.name), ['香港 A', 'US B'])
   const members = name => mihomoConfig['proxy-groups'].find(group => group.name === name).proxies
-  assert.deepEqual(members('手动选择'), ['手选节点', '故障转移'])
+  assert.deepEqual(members('手动选择'), ['手选节点', '香港 A', 'US B'])
   for (const name of ['手选节点', '自动选择', '故障转移']) {
     assert.deepEqual(members(name), ['香港 A', 'US B'])
   }
-  // 地区组固定指向“本区自动 + 全局兜底”，本区自动只填匹配节点。
-  for (const region of ['香港', '日本', '美国', '德国']) {
-    assert.deepEqual(members(`${region}节点`), [`${region}自动`, '故障转移'])
+  // 地区组：本区节点在前，其余节点扫尾，且全部是节点（不得混入策略组）。
+  assert.deepEqual(members('香港节点'), ['香港 A', 'US B'])
+  assert.deepEqual(members('美国节点'), ['US B', '香港 A'])
+  // 本区无匹配节点时，按全部节点填充，行为与原来一致。
+  assert.deepEqual(members('日本节点'), ['香港 A', 'US B'])
+  assert.deepEqual(members('德国节点'), ['香港 A', 'US B'])
+  const groupNames = new Set(mihomoConfig['proxy-groups'].map(group => group.name))
+  // 手动选择的第一项是“手选节点”，这是刻意保留的唯一嵌套；其余必须是纯节点。
+  for (const name of ['香港节点', '日本节点', '美国节点', '德国节点', '故障转移']) {
+    for (const member of members(name)) {
+      assert(!groupNames.has(member), `${name} 混入了策略组 ${member}`)
+    }
   }
-  assert.deepEqual(members('香港自动'), ['香港 A'])
-  assert.deepEqual(members('美国自动'), ['US B'])
-  // 本区没有匹配节点时沿用全部节点，避免空组（与原有行为一致）。
-  assert.deepEqual(members('日本自动'), ['香港 A', 'US B'])
-  assert.deepEqual(members('德国自动'), ['香港 A', 'US B'])
 
   const singBoxTemplate = JSON.stringify({
     outbounds: [

@@ -63,7 +63,8 @@ function regionalNames(names, pattern) {
 }
 
 function fillGroups(groups, nameKey, membersKey, names) {
-  const dynamicGroups = new Set([target === 'clash' ? '手选节点' : '手动选择', '自动选择', '故障转移'])
+  const isClash = target === 'clash'
+  const dynamicGroups = new Set([isClash ? '手选节点' : '手动选择', '自动选择', '故障转移'])
 
   for (const group of groups) {
     const name = group?.[nameKey]
@@ -71,13 +72,16 @@ function fillGroups(groups, nameKey, membersKey, names) {
       group[membersKey] = [...names]
       continue
     }
-    // Clash 只有“香港自动”这类组填节点，外层“香港节点”保留对兜底的引用。
-    const pattern = target === 'clash'
-      ? (name?.endsWith('自动') ? regionPatterns[`${name.slice(0, -2)}节点`] : undefined)
-      : regionPatterns[name]
-    if (pattern) {
-      group[membersKey] = regionalNames(names, pattern)
+    if (isClash && name === '手动选择') {
+      group[membersKey] = ['手选节点', ...names]
+      continue
     }
+    if (!regionPatterns[name]) continue
+    const matched = regionalNames(names, regionPatterns[name])
+    // Clash 的兜底组只能放节点：本区优先，其余节点扫尾；混入策略组会让 failover 失效。
+    group[membersKey] = isClash
+      ? [...matched, ...names.filter(item => !matched.includes(item))]
+      : matched
   }
 }
 
