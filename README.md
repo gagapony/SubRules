@@ -63,6 +63,14 @@ Shadowrocket 中分别导入：
 
 不要把真实 token、上游订阅地址或生成后的节点配置提交到仓库。
 
+## 一键导入页
+
+`docs/index.html` 是静态导入页，用 GitHub Pages 托管（Settings → Pages → Deploy from a branch → `main` → `/docs`），地址为 `https://gagapony.github.io/SubRules/`。页面通过客户端 URL scheme 一键导入：
+
+- Shadowrocket：`shadowrocket://add/`（订阅）、`shadowrocket://config/add/`（配置）
+- Clash/Mihomo：`clash://install-config?url=`
+- sing-box：`sing-box://import-remote-profile?url=`
+
 ## 测试
 
 ```bash
