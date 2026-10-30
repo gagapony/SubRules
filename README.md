@@ -38,30 +38,30 @@ https://raw.githubusercontent.com/gagapony/SubRules/main/rules/substore.js
 
 4. Script Operator 参数保持为空。
 
-## 文件分享链接
+## 订阅入口
+
+订阅不再公开直链。访问 `https://nodesub.528777.xyz/`，用 Element（Matrix）账号登录后领取自己的订阅链接：
 
 ```text
-/share/file/Subscription?token=YOUR_FILE_TOKEN&target=clash
-/share/file/Subscription?token=YOUR_FILE_TOKEN&target=singbox
-/share/file/Subscription?token=YOUR_FILE_TOKEN&target=shadowrocket
-/share/file/Subscription?token=YOUR_FILE_TOKEN&target=shadowrocket-rules
+https://nodesub.528777.xyz/<token>?target=clash
+https://nodesub.528777.xyz/<token>?target=singbox
+https://nodesub.528777.xyz/<token>?target=shadowrocket
+https://nodesub.528777.xyz/<token>?target=shadowrocket-rules
 ```
 
-使用 Worker 时对应为：
-
-```text
-https://getsub.528777.xyz/gagapony?target=clash
-https://getsub.528777.xyz/gagapony?target=singbox
-https://getsub.528777.xyz/gagapony?target=shadowrocket
-https://getsub.528777.xyz/gagapony?target=shadowrocket-rules
-```
+- 部署：本机 `NodeSub`（`docker compose up -d`），clover 反代 `nodesub.528777.xyz → http://127.0.0.1:16610`，复用泛域名证书。
+- 登录：向本地 conduit（`/_matrix/client/v3/login`）校验，**密码不保存**；校验完立即 logout，不在 Element 里留设备。
+- token：`HMAC-SHA256(user_id, TOKEN_SECRET)`，与密码无关，长期有效；轮换 `NodeSub/.env` 里的 `TOKEN_SECRET` 即可全部作废。
+- 失败节流：同一 IP 10 分钟内 5 次错误后冷却。
+- 上游：`Sub-Store 后端路径 /share/file/Subscription`，输出与旧 Worker 逐字节一致。
+- 未做：Matrix 房间成员校验（入群=开通）。目前任何能登录本机 conduit 的账号都可以领取。
 
 Shadowrocket 中分别导入：
 
 1. `target=shadowrocket` 从普通节点“订阅”入口添加。
 2. `target=shadowrocket-rules` 从“配置文件”入口下载并选为当前配置。
 
-不要把真实 token、上游订阅地址或生成后的节点配置提交到仓库。
+不要把真实 token、`TOKEN_SECRET`、上游订阅地址或生成后的节点配置提交到仓库。
 
 ## 故障兜底
 
@@ -102,9 +102,9 @@ Shadowrocket 使用独立配置时，节点订阅和 `target=shadowrocket-rules`
 
 ## 一键导入页
 
-`docs/index.html` 是静态导入页，用 GitHub Pages 托管（Settings → Pages → Deploy from a branch → `main` → `/docs`），地址为 `https://gagapony.github.io/SubRules/`。页面通过客户端 URL scheme 一键导入：
+导入页由 `NodeSub` 提供（`https://nodesub.528777.xyz/`），不再用 GitHub Pages：页面本身不含任何令牌，登录后由服务端签发。
 
-- Clash / Mihomo / Shadowrocket：`clash://install-config?url=`，同一订阅地址，一键导入节点 + 分组 + 规则（小火箭兼容 clash:// 链接，已真机验证）
+- Clash / Mihomo / Shadowrocket：`clash://install-config?url=`，一键导入节点 + 分组 + 规则（小火箭兼容 clash:// 链接，已真机验证）
 - sing-box：`sing-box://import-remote-profile?url=`
 
 ## 测试
