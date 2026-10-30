@@ -21,10 +21,10 @@ if (!['subscription', 'collection'].includes(sourceType) || !sourceName) {
 
 const metadataPattern = /(剩余|流量|套餐|到期|官网|订阅|更新|traffic|expire|有效期)/i
 const regionPatterns = {
-  香港节点: /(香港|\bHK\b|Hong ?Kong|\bHKG\b|🇭🇰)/i,
-  日本节点: /(日本|\bJP\b|Japan|Tokyo|Osaka|东京|大阪|\bNRT\b|\bHND\b|\bKIX\b|🇯🇵)/i,
-  美国节点: /(美国|\bUS\b|\bUSA\b|United States|America|Los Angeles|Seattle|San Jose|New York|Dallas|Chicago|Virginia|California|洛杉矶|西雅图|圣何塞|纽约|达拉斯|芝加哥|美西|美东|🇺🇸)/i,
-  德国节点: /(德国|\bDE\b|Germany|Frankfurt|法兰克福|\bFRA\b|🇩🇪)/i
+  香港: /(香港|\bHK\b|Hong ?Kong|\bHKG\b|🇭🇰)/i,
+  日本: /(日本|\bJP\b|Japan|Tokyo|Osaka|东京|大阪|\bNRT\b|\bHND\b|\bKIX\b|🇯🇵)/i,
+  美国: /(美国|\bUS\b|\bUSA\b|United States|America|Los Angeles|Seattle|San Jose|New York|Dallas|Chicago|Virginia|California|洛杉矶|西雅图|圣何塞|纽约|达拉斯|芝加哥|美西|美东|🇺🇸)/i,
+  德国: /(德国|\bDE\b|Germany|Frankfurt|法兰克福|\bFRA\b|🇩🇪)/i
 }
 
 async function fetchTemplate() {
@@ -63,25 +63,15 @@ function regionalNames(names, pattern) {
 }
 
 function fillGroups(groups, nameKey, membersKey, names) {
-  const isClash = target === 'clash'
-  const dynamicGroups = new Set([isClash ? '手选节点' : '手动选择', '自动选择', '故障转移'])
-
   for (const group of groups) {
     const name = group?.[nameKey]
-    if (dynamicGroups.has(name)) {
+    // Mihomo 只填地区线路，保留外层 fallback；sing-box 仍填原有地区节点组。
+    const region = name?.replace(target === 'clash' ? /线路$/ : /节点$/, '')
+    if (['手动选择', '自动选择', '故障转移'].includes(name)) {
       group[membersKey] = [...names]
-      continue
+    } else if (regionPatterns[region]) {
+      group[membersKey] = regionalNames(names, regionPatterns[region])
     }
-    if (isClash && name === '手动选择') {
-      group[membersKey] = ['手选节点', ...names]
-      continue
-    }
-    if (!regionPatterns[name]) continue
-    const matched = regionalNames(names, regionPatterns[name])
-    // Clash 的兜底组只能放节点：本区优先，其余节点扫尾；混入策略组会让 failover 失效。
-    group[membersKey] = isClash
-      ? [...matched, ...names.filter(item => !matched.includes(item))]
-      : matched
   }
 }
 
@@ -117,6 +107,11 @@ if (target === 'shadowrocket') {
       .filter(proxy => allowed.has(proxy.name))
       .map(proxy => Object.fromEntries(Object.entries(proxy).filter(([key]) => !key.startsWith('_'))))
     config['proxy-groups'] = config['proxy-groups'] ?? []
+    const reserved = new Set(['DIRECT', 'REJECT', 'REJECT-DROP', ...config['proxy-groups'].map(group => group.name)])
+    const collision = names.find(name => reserved.has(name))
+    if (collision) {
+      throw new Error(`节点名称与规则策略组重复: ${collision}`)
+    }
     fillGroups(config['proxy-groups'], 'name', 'proxies', names)
     $content = ProxyUtils.yaml.safeDump(config)
   } else if (target === 'singbox') {

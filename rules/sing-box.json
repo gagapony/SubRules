@@ -45,13 +45,7 @@
       "tag": "选择代理",
       "outbounds": [
         "自动选择",
-        "故障转移",
-        "香港节点",
-        "日本节点",
-        "美国节点",
-        "德国节点",
-        "手动选择",
-        "DIRECT"
+        "手动选择"
       ],
       "default": "自动选择"
     },
@@ -108,113 +102,113 @@
     {
       "type": "selector",
       "tag": "静态资源",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "AI服务",
-      "outbounds": ["美国节点", "选择代理", "香港节点", "日本节点", "德国节点", "手动选择", "DIRECT"],
+      "outbounds": ["美国节点", "选择代理", "香港节点", "日本节点", "德国节点", "DIRECT"],
       "default": "美国节点"
     },
     {
       "type": "selector",
       "tag": "加密货币",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "苹果服务",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "谷歌服务",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "微软服务",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "Xbox",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "GitHub",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "哔哩哔哩",
-      "outbounds": ["DIRECT", "香港节点", "日本节点", "美国节点", "德国节点", "选择代理", "手动选择"],
+      "outbounds": ["DIRECT", "香港节点", "日本节点", "美国节点", "德国节点", "选择代理"],
       "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "巴哈姆特",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "YouTube",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "Twitch",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "Netflix",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "TikTok",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "Spotify",
-      "outbounds": ["DIRECT", "选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择"],
+      "outbounds": ["DIRECT", "选择代理", "香港节点", "日本节点", "美国节点", "德国节点"],
       "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "Telegram",
-      "outbounds": ["美国节点", "选择代理", "香港节点", "日本节点", "德国节点", "手动选择", "DIRECT"],
+      "outbounds": ["美国节点", "选择代理", "香港节点", "日本节点", "德国节点", "DIRECT"],
       "default": "美国节点"
     },
     {
       "type": "selector",
       "tag": "Twitter",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "新浪微博",
-      "outbounds": ["DIRECT", "香港节点", "日本节点", "美国节点", "德国节点", "选择代理", "手动选择"],
+      "outbounds": ["DIRECT", "香港节点", "日本节点", "美国节点", "德国节点", "选择代理"],
       "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "Truth Social",
-      "outbounds": ["美国节点", "选择代理", "手动选择"],
+      "outbounds": ["美国节点", "选择代理"],
       "default": "美国节点"
     },
     {
       "type": "selector",
       "tag": "E-Hentai",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
       "tag": "PikPak网盘",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "手动选择", "DIRECT"]
+      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
     },
     {
       "type": "selector",
@@ -411,6 +405,7 @@
       {"type": "remote", "tag": "geoip-cn", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs", "download_detour": "DIRECT"}
     ],
     "final": "Final",
+    "default_domain_resolver": "local",
     "auto_detect_interface": true
   },
   "experimental": {
