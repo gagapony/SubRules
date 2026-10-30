@@ -9,6 +9,8 @@ const readTemplate = file => fs.readFileSync(path.join(__dirname, file), 'utf8')
 const mihomoTemplate = execFileSync('python3', ['-c',
   'import json,sys,yaml; print(json.dumps(yaml.safe_load(sys.stdin.read())))'
 ], { input: readTemplate('mihomo.yaml'), encoding: 'utf8' })
+assert(!/uuid|password/.test(mihomoTemplate), 'template must not embed node credentials')
+assert.equal(JSON.parse(mihomoTemplate).proxies.length, 0, 'template proxies must stay empty')
 
 function checkGroups(groups, nameKey, membersKey, nodes = []) {
   const byName = new Map(groups.map(group => [group[nameKey], group]))
