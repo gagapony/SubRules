@@ -102,130 +102,282 @@
     {
       "type": "selector",
       "tag": "静态资源",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "AI服务",
-      "outbounds": ["美国节点", "选择代理", "香港节点", "日本节点", "德国节点", "DIRECT"],
+      "outbounds": [
+        "美国节点",
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "德国节点",
+        "DIRECT"
+      ],
       "default": "美国节点"
     },
     {
       "type": "selector",
       "tag": "加密货币",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "苹果服务",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "谷歌服务",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "微软服务",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "Xbox",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "GitHub",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "哔哩哔哩",
-      "outbounds": ["DIRECT", "香港节点", "日本节点", "美国节点", "德国节点", "选择代理"],
+      "outbounds": [
+        "DIRECT",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "选择代理"
+      ],
       "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "巴哈姆特",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "YouTube",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "Twitch",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "Netflix",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "TikTok",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "Spotify",
-      "outbounds": ["DIRECT", "选择代理", "香港节点", "日本节点", "美国节点", "德国节点"],
+      "outbounds": [
+        "DIRECT",
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点"
+      ],
       "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "Telegram",
-      "outbounds": ["美国节点", "选择代理", "香港节点", "日本节点", "德国节点", "DIRECT"],
+      "outbounds": [
+        "美国节点",
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "德国节点",
+        "DIRECT"
+      ],
       "default": "美国节点"
     },
     {
       "type": "selector",
       "tag": "Twitter",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "新浪微博",
-      "outbounds": ["DIRECT", "香港节点", "日本节点", "美国节点", "德国节点", "选择代理"],
+      "outbounds": [
+        "DIRECT",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "选择代理"
+      ],
       "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "Truth Social",
-      "outbounds": ["美国节点", "选择代理"],
+      "outbounds": [
+        "美国节点",
+        "选择代理"
+      ],
       "default": "美国节点"
     },
     {
       "type": "selector",
       "tag": "E-Hentai",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "PikPak网盘",
-      "outbounds": ["选择代理", "香港节点", "日本节点", "美国节点", "德国节点", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "香港节点",
+        "日本节点",
+        "美国节点",
+        "德国节点",
+        "DIRECT"
+      ]
     },
     {
       "type": "selector",
       "tag": "搜狗输入法",
-      "outbounds": ["DIRECT", "REJECT"],
+      "outbounds": [
+        "DIRECT",
+        "REJECT"
+      ],
       "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "广告拦截",
-      "outbounds": ["REJECT", "DIRECT"],
+      "outbounds": [
+        "REJECT",
+        "DIRECT"
+      ],
       "default": "REJECT"
     },
     {
       "type": "selector",
       "tag": "Final",
-      "outbounds": ["选择代理", "DIRECT"]
+      "outbounds": [
+        "选择代理",
+        "DIRECT"
+      ]
     }
   ],
   "route": {
@@ -240,7 +392,9 @@
         "outbound": "DIRECT"
       },
       {
-        "domain_suffix": ["push.apple.com"],
+        "domain_suffix": [
+          "push.apple.com"
+        ],
         "outbound": "DIRECT"
       },
       {
@@ -256,7 +410,9 @@
         "outbound": "AI服务"
       },
       {
-        "domain_keyword": ["openai"],
+        "domain_keyword": [
+          "openai"
+        ],
         "outbound": "AI服务"
       },
       {
@@ -264,153 +420,424 @@
         "outbound": "DIRECT"
       },
       {
-        "rule_set": ["ads"],
+        "rule_set": [
+          "ads"
+        ],
         "outbound": "广告拦截"
       },
       {
-        "rule_set": ["sogou"],
+        "rule_set": [
+          "sogou"
+        ],
         "outbound": "搜狗输入法"
       },
       {
-        "domain_suffix": ["truthsocial.com"],
+        "domain_suffix": [
+          "truthsocial.com"
+        ],
         "outbound": "Truth Social"
       },
       {
-        "rule_set": ["cloudflare", "akamai", "fastly", "jsdelivr"],
+        "rule_set": [
+          "cloudflare",
+          "akamai",
+          "fastly",
+          "jsdelivr"
+        ],
         "outbound": "静态资源"
       },
       {
-        "rule_set": ["ai"],
+        "rule_set": [
+          "ai"
+        ],
         "outbound": "AI服务"
       },
       {
-        "rule_set": ["bilibili"],
+        "rule_set": [
+          "bilibili"
+        ],
         "outbound": "哔哩哔哩"
       },
       {
-        "rule_set": ["youtube"],
+        "rule_set": [
+          "youtube"
+        ],
         "outbound": "YouTube"
       },
       {
-        "rule_set": ["telegram", "geoip-telegram"],
+        "rule_set": [
+          "telegram",
+          "geoip-telegram"
+        ],
         "outbound": "Telegram"
       },
       {
-        "rule_set": ["xbox"],
+        "rule_set": [
+          "xbox"
+        ],
         "outbound": "Xbox"
       },
       {
-        "rule_set": ["github"],
+        "rule_set": [
+          "github"
+        ],
         "outbound": "GitHub"
       },
       {
-        "rule_set": ["netflix", "geoip-netflix"],
+        "rule_set": [
+          "netflix",
+          "geoip-netflix"
+        ],
         "outbound": "Netflix"
       },
       {
-        "rule_set": ["twitch"],
+        "rule_set": [
+          "twitch"
+        ],
         "outbound": "Twitch"
       },
       {
-        "rule_set": ["spotify"],
+        "rule_set": [
+          "spotify"
+        ],
         "outbound": "Spotify"
       },
       {
-        "rule_set": ["bahamut"],
+        "rule_set": [
+          "bahamut"
+        ],
         "outbound": "巴哈姆特"
       },
       {
-        "rule_set": ["pikpak"],
+        "rule_set": [
+          "pikpak"
+        ],
         "outbound": "PikPak网盘"
       },
       {
-        "rule_set": ["twitter"],
+        "rule_set": [
+          "twitter"
+        ],
         "outbound": "Twitter"
       },
       {
-        "rule_set": ["sina"],
+        "rule_set": [
+          "sina"
+        ],
         "outbound": "新浪微博"
       },
       {
-        "rule_set": ["ehentai"],
+        "rule_set": [
+          "ehentai"
+        ],
         "outbound": "E-Hentai"
       },
       {
-        "rule_set": ["tiktok"],
+        "rule_set": [
+          "tiktok"
+        ],
         "outbound": "TikTok"
       },
       {
-        "rule_set": ["steam", "googlefcm", "google-play-cn", "microsoft-cn"],
+        "rule_set": [
+          "steam",
+          "googlefcm",
+          "google-play-cn",
+          "microsoft-cn"
+        ],
         "outbound": "DIRECT"
       },
       {
-        "rule_set": ["apple"],
+        "rule_set": [
+          "apple"
+        ],
         "outbound": "苹果服务"
       },
       {
-        "rule_set": ["microsoft"],
+        "rule_set": [
+          "microsoft"
+        ],
         "outbound": "微软服务"
       },
       {
-        "rule_set": ["google"],
+        "rule_set": [
+          "google"
+        ],
         "outbound": "谷歌服务"
       },
       {
-        "rule_set": ["cryptocurrency"],
+        "rule_set": [
+          "cryptocurrency"
+        ],
         "outbound": "加密货币"
       },
       {
-        "rule_set": ["global"],
+        "rule_set": [
+          "global"
+        ],
         "outbound": "选择代理"
       },
       {
-        "rule_set": ["geoip-cn", "cn"],
+        "rule_set": [
+          "geoip-cn",
+          "cn"
+        ],
         "outbound": "DIRECT"
       }
     ],
     "rule_set": [
-      {"type": "remote", "tag": "ads", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads-all.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "sogou", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/sogou.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "cloudflare", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cloudflare.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "akamai", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/akamai.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "fastly", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/fastly.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "jsdelivr", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/jsdelivr.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "ai", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-!cn.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "bilibili", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bilibili.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "youtube", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "telegram", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "geoip-telegram", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "xbox", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/xbox.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "github", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/github.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "netflix", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "geoip-netflix", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "twitch", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/twitch.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "spotify", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/spotify.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "bahamut", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bahamut.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "pikpak", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/pikpak.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "twitter", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/twitter.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "sina", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/sina.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "ehentai", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/ehentai.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "tiktok", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tiktok.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "steam", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/steam.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "googlefcm", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/googlefcm.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "google-play-cn", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-play@cn.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "microsoft-cn", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft@cn.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "apple", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "microsoft", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "google", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "cryptocurrency", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-cryptocurrency.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "global", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "cn", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs", "download_detour": "DIRECT"},
-      {"type": "remote", "tag": "geoip-cn", "format": "binary", "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs", "download_detour": "DIRECT"}
+      {
+        "type": "remote",
+        "tag": "ads",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ads-all.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "sogou",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/sogou.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "cloudflare",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cloudflare.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "akamai",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/akamai.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "fastly",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/fastly.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "jsdelivr",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/jsdelivr.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "ai",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-!cn.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "bilibili",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bilibili.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "youtube",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "telegram",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "geoip-telegram",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "xbox",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/xbox.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "github",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/github.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "netflix",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "geoip-netflix",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "twitch",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/twitch.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "spotify",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/spotify.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "bahamut",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/bahamut.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "pikpak",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/pikpak.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "twitter",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/twitter.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "sina",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/sina.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "ehentai",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/ehentai.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "tiktok",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tiktok.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "steam",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/steam.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "googlefcm",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/googlefcm.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "google-play-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-play@cn.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "microsoft-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft@cn.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "apple",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "microsoft",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/microsoft.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "google",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "cryptocurrency",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-cryptocurrency.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "global",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
+        "http_client": "direct"
+      },
+      {
+        "type": "remote",
+        "tag": "geoip-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "http_client": "direct"
+      }
     ],
     "final": "Final",
     "default_domain_resolver": "local",
-    "auto_detect_interface": true
+    "auto_detect_interface": true,
+    "default_http_client": "direct"
   },
   "experimental": {
     "cache_file": {
       "enabled": true
     }
-  }
+  },
+  "http_clients": [
+    {
+      "tag": "direct"
+    }
+  ]
 }

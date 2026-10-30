@@ -192,6 +192,11 @@ async function main() {
   })
   const singBoxConfig = JSON.parse(singBox.$content)
   assert.equal(singBoxConfig.route.default_domain_resolver, singBoxConfig.dns.final)
+  // detour DIRECT is invalid: direct outbound has no dialer, sing-box refuses to start.
+  assert.deepEqual(singBoxConfig.http_clients, [{ tag: 'direct' }])
+  assert.equal(singBoxConfig.route.default_http_client, 'direct')
+  assert(!singBoxConfig.route.rule_set.some(set => 'download_detour' in set), 'download_detour is removed in sing-box 1.16')
+  assert(singBoxConfig.route.rule_set.every(set => set.http_client === 'direct'))
   assert.deepEqual(singBox.requests, [
     'https://raw.githubusercontent.com/gagapony/SubRules/main/rules/sing-box.json'
   ])
