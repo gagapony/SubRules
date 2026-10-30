@@ -11,6 +11,9 @@ const mihomoTemplate = execFileSync('python3', ['-c',
 ], { input: readTemplate('mihomo.yaml'), encoding: 'utf8' })
 assert(!/uuid|password/.test(mihomoTemplate), 'template must not embed node credentials')
 assert.equal(JSON.parse(mihomoTemplate).proxies.length, 0, 'template proxies must stay empty')
+assert(!JSON.parse(mihomoTemplate)['proxy-groups'].some(group => group.icon), 'group icons are not wanted')
+assert.equal(JSON.parse(mihomoTemplate)['unified-delay'], true)
+assert.equal(JSON.parse(mihomoTemplate)['tcp-concurrent'], true)
 
 function checkGroups(groups, nameKey, membersKey, nodes = []) {
   const byName = new Map(groups.map(group => [group[nameKey], group]))

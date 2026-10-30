@@ -81,7 +81,7 @@ Shadowrocket 中分别导入：
 - 地区外层与共享备用检测间隔 30 秒、超时 3 秒；Mihomo 显式设置 `lazy: false`。检测和切换需要时间，不保证 30 秒内完成，也不会无缝迁移已有连接。
 - 应用组不再重复列出 `手动选择`；全局手选通过 `选择代理 → 手动选择` 进入。这里选死节点不会自动兜底，需要地区优先兜底时应选 `地区节点`。
 - AI、Telegram、Spotify、Truth Social 默认使用 `选择代理`；哔哩哔哩、新浪微博等保留直连默认。
-- 2026-10-30 起模板整体与手机验证过的临时配置同步：DNS（fake-ip、IPv6 关闭、prefer-h3）、s­niffer、TUN（默认关闭）、38 条规则与 12 个规则集（仅 jsdelivr / skk.moe 源）、GLOBAL 组及图标全部随仓库模板下发。sing-box 与 Shadowrocket 原生配置不包含该基线，另行维护。
+- 2026-10-30 起模板整体与手机验证过的临时配置同步：DNS（fake-ip、IPv6 关闭、prefer-h3）、s­niffer、TUN（默认关闭）、38 条规则与 12 个规则集（仅 jsdelivr / skk.moe 源）、GLOBAL 组随仓库模板下发；另加回 `unified-delay` 与 `tcp-concurrent`，策略组不带图标。sing-box 与 Shadowrocket 原生配置不包含该基线，另行维护。
 - `故障转移` 只放裸节点，不反向引用地区组，避免循环依赖。
 - Sub-Store 在某地区没有匹配节点时仍使用全部节点填充该地区叶子组，避免空组；此时地区名不保证实际出口地区。Shadowrocket 原生配置使用正则动态匹配，不做这一补齐，请检查订阅节点名称与地区匹配情况。
 
