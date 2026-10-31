@@ -65,9 +65,9 @@ function regionalNames(names, pattern) {
 function fillGroups(groups, nameKey, membersKey, names) {
   for (const group of groups) {
     const name = group?.[nameKey]
-    // Mihomo 只填地区线路，保留外层 fallback；sing-box 仍填原有地区节点组。
-    const region = name?.replace(target === 'clash' ? /线路$/ : /节点$/, '')
-    if (['手动选择', '自动选择', '故障转移'].includes(name)) {
+    // 三端地区组都直接装本区节点，组内自动选，不跨区兜底。
+    const region = name?.replace(/节点$/, '')
+    if (['手动选择', '自动选择'].includes(name)) {
       group[membersKey] = [...names]
     } else if (regionPatterns[region]) {
       group[membersKey] = regionalNames(names, regionPatterns[region])

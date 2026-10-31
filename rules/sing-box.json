@@ -64,40 +64,35 @@
     },
     {
       "type": "urltest",
-      "tag": "故障转移",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com",
-      "interval": "1m",
-      "tolerance": 20
-    },
-    {
-      "type": "urltest",
       "tag": "香港节点",
       "outbounds": [],
       "url": "https://cp.cloudflare.com",
-      "interval": "1m",
-      "tolerance": 20
+      "interval": "3m",
+      "tolerance": 100
     },
     {
       "type": "urltest",
       "tag": "日本节点",
       "outbounds": [],
       "url": "https://cp.cloudflare.com",
-      "interval": "1m",
-      "tolerance": 20
+      "interval": "3m",
+      "tolerance": 100
     },
     {
-      "type": "selector",
+      "type": "urltest",
       "tag": "美国节点",
-      "outbounds": []
+      "outbounds": [],
+      "url": "https://cp.cloudflare.com",
+      "interval": "3m",
+      "tolerance": 100
     },
     {
       "type": "urltest",
       "tag": "德国节点",
       "outbounds": [],
       "url": "https://cp.cloudflare.com",
-      "interval": "1m",
-      "tolerance": 20
+      "interval": "3m",
+      "tolerance": 100
     },
     {
       "type": "selector",

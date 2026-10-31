@@ -235,42 +235,39 @@ proxy-groups:
   interval: 300
   tolerance: 100
   proxies: []
+# 地区组只在本区内 url-test，失效不跨区兜底，避免解锁节点被换到不支持的地区。
 - name: 香港节点
-  type: fallback
+  type: url-test
   url: https://cp.cloudflare.com
-  interval: 30
-  timeout: 3000
+  interval: 300
+  tolerance: 100
+  timeout: 5000
   lazy: false
-  proxies:
-  - 香港线路
-  - 故障转移
+  proxies: []
 - name: 日本节点
-  type: fallback
+  type: url-test
   url: https://cp.cloudflare.com
-  interval: 30
-  timeout: 3000
+  interval: 300
+  tolerance: 100
+  timeout: 5000
   lazy: false
-  proxies:
-  - 日本线路
-  - 故障转移
+  proxies: []
 - name: 美国节点
-  type: fallback
+  type: url-test
   url: https://cp.cloudflare.com
-  interval: 30
-  timeout: 3000
+  interval: 300
+  tolerance: 100
+  timeout: 5000
   lazy: false
-  proxies:
-  - 美国线路
-  - 故障转移
+  proxies: []
 - name: 德国节点
-  type: fallback
+  type: url-test
   url: https://cp.cloudflare.com
-  interval: 30
-  timeout: 3000
+  interval: 300
+  tolerance: 100
+  timeout: 5000
   lazy: false
-  proxies:
-  - 德国线路
-  - 故障转移
+  proxies: []
 - name: GLOBAL
   include-all: true
   type: select
@@ -307,25 +304,6 @@ proxy-groups:
   - 日本节点
   - 美国节点
   - 德国节点
-- name: 故障转移
-  type: fallback
-  url: https://cp.cloudflare.com
-  interval: 30
-  timeout: 3000
-  lazy: false
-  proxies: []
-- name: 香港线路
-  type: select
-  proxies: []
-- name: 日本线路
-  type: select
-  proxies: []
-- name: 美国线路
-  type: select
-  proxies: []
-- name: 德国线路
-  type: select
-  proxies: []
 rule-providers:
   ADBlock:
     type: http
@@ -577,7 +555,7 @@ dns:
   - +.apt-agent.com
 tun:
   enable: false
-  stack: mips
+  stack: gvisor
   device: mihomo
   route-exclude-address:
   - 100.64.0.0/10

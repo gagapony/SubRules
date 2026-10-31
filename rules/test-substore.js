@@ -133,22 +133,22 @@ async function main() {
   assert.deepEqual(mihomoConfig.proxies.map(proxy => proxy.name), ['香港 A', 'US B'])
   const members = name => mihomoConfig['proxy-groups'].find(group => group.name === name).proxies
   assert.deepEqual(members('选择代理'), ['自动选择', '手动选择'])
-  for (const name of ['手动选择', '自动选择', '故障转移']) {
+  for (const name of ['手动选择', '自动选择']) {
     assert.deepEqual(members(name), ['香港 A', 'US B'])
   }
+  assert(!mihomoConfig['proxy-groups'].some(group => /线路$|故障转移/.test(group.name)), 'no regional line or shared fallback groups')
+  assert.notEqual(mihomoConfig.tun.stack, 'mips')
+  assert(['gvisor', 'system', 'lwip', 'mixed'].includes(mihomoConfig.tun.stack), `invalid tun stack: ${mihomoConfig.tun.stack}`)
   for (const region of regions) {
     const parent = mihomoConfig['proxy-groups'].find(group => group.name === `${region}节点`)
-    assert.equal(parent.type, 'fallback')
-    assert.deepEqual(parent.proxies, [`${region}线路`, '故障转移'])
-    assert.equal(parent.interval, 30)
-    assert.equal(parent.timeout, 3000)
+    assert.equal(parent.type, 'url-test')
+    assert(parent.interval >= 300 && parent.tolerance >= 100, `region group flaps: ${region}`)
     assert.equal(parent.lazy, false)
-    assert.equal(mihomoConfig['proxy-groups'].find(group => group.name === `${region}线路`).type, 'select')
   }
-  assert.deepEqual(members('香港线路'), ['香港 A'])
-  assert.deepEqual(members('美国线路'), ['US B'])
-  assert.deepEqual(members('日本线路'), ['香港 A', 'US B'])
-  assert.deepEqual(members('德国线路'), ['香港 A', 'US B'])
+  assert.deepEqual(members('香港节点'), ['香港 A'])
+  assert.deepEqual(members('美国节点'), ['US B'])
+  assert.deepEqual(members('日本节点'), ['香港 A', 'US B'])
+  assert.deepEqual(members('德国节点'), ['香港 A', 'US B'])
   checkGroups(mihomoConfig['proxy-groups'], 'name', 'proxies', ['香港 A', 'US B'])
   const clashTargets = new Set(['DIRECT', 'REJECT', ...mihomoConfig['proxy-groups'].map(group => group.name)])
   for (const rule of mihomoConfig.rules) {
@@ -160,7 +160,7 @@ async function main() {
     target: 'clash', template: mihomoTemplate,
     artifacts: { ClashMeta: [{ name: 'DE A' }, { name: 'DE B' }, { name: 'HK A' }] }
   })).$content)
-  assert.deepEqual(twoGermanNodes['proxy-groups'].find(group => group.name === '德国线路').proxies, ['DE A', 'DE B'])
+  assert.deepEqual(twoGermanNodes['proxy-groups'].find(group => group.name === '德国节点').proxies, ['DE A', 'DE B'])
   for (const name of ['AI服务', 'Telegram', 'Spotify', 'Truth Social']) {
     assert.equal(members(name)[0], '选择代理')
   }
@@ -171,7 +171,7 @@ async function main() {
     const template = target === 'clash' ? mihomoTemplate : readTemplate('sing-box.json')
     await assert.rejects(run({ target, template, artifacts: { [platform]: [] } }), /没有可用节点/)
     await assert.rejects(run({ target, template, artifacts: {
-      [platform]: [{ [key]: '德国线路' }, { [key]: '德国线路' }]
+      [platform]: [{ [key]: '德国节点' }, { [key]: '德国节点' }]
     } }), /节点名称重复/)
     await assert.rejects(run({ target, template, artifacts: {
       [platform]: [{ [key]: '选择代理' }]
@@ -212,12 +212,13 @@ async function main() {
   assert.deepEqual(singBoxConfig.outbounds.find(outbound => outbound.tag === '德国节点').outbounds, ['德国 B'])
   const sbGroup = tag => singBoxConfig.outbounds.find(outbound => outbound.tag === tag)
   assert.deepEqual(sbGroup('选择代理').outbounds, ['自动选择', '手动选择'])
-  for (const tag of ['自动选择', '故障转移']) {
+  for (const tag of ['自动选择']) {
     assert.deepEqual(sbGroup(tag).outbounds, ['JP A', '德国 B'])
     assert.equal(sbGroup(tag).type, 'urltest')
   }
+  assert(!sbGroup('故障转移'), 'no shared fallback group')
   for (const region of regions) {
-    assert.equal(sbGroup(`${region}节点`).type, region === '美国' ? 'selector' : 'urltest')
+    assert.equal(sbGroup(`${region}节点`).type, 'urltest', `${region} must auto-select inside its own region`)
   }
   checkGroups(singBoxConfig.outbounds, 'tag', 'outbounds')
   const sbTargets = new Set(singBoxConfig.outbounds.map(outbound => outbound.tag))
@@ -289,14 +290,14 @@ async function main() {
   const srGroup = name => srGroups.find(group => group.name === name)
   assert.deepEqual(srGroup('选择代理').proxies, ['自动选择', '手动选择'])
   for (const region of regions) {
-    assert.equal(srGroup(`${region}线路`).type, 'select')
-    assert(srGroup(`${region}线路`).parts.some(part => part.startsWith('policy-regex-filter=')))
-    const parent = srGroup(`${region}节点`)
-    assert.equal(parent.type, 'fallback')
-    assert.deepEqual(parent.proxies, [`${region}线路`, '故障转移'])
-    assert(parent.parts.includes('interval=30'))
-    assert(parent.parts.includes('timeout=3'))
+    const group = srGroup(`${region}节点`)
+    assert.equal(group.type, 'url-test')
+    assert(group.parts.some(part => part.startsWith('policy-regex-filter=')))
+    assert(group.parts.includes('interval=300'))
+    assert(group.parts.includes('tolerance=100'))
+    assert(!group.proxies.includes('故障转移'))
   }
+  assert(!srGroup('故障转移'))
   // Native regex leaves have no literal members until Shadowrocket expands the subscription.
   checkGroups(srGroups.map(group => ({ ...group,
     proxies: group.proxies.length ? group.proxies : ['fixture-node']
